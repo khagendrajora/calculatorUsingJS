@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="calculator">
+        <h3 id="screen">0</h3>
+        <div class="buttons">
+            <div class="left-pannel">
+                <div class="numbers">
+                    <div onclick="operand(9)">9</div>
+                    <div onclick="operand(8)">8</div>
+                    <div onclick="operand(7)">7</div>
+                </div>
+                <div class="numbers">
+                    <div onclick="operand(4)">4</div>
+                    <div onclick="operand(5)">5</div>
+                    <div onclick="operand(6)">6</div>
+                </div>
+                <div class="numbers">
+                    <div onclick="operand(1)">1</div>
+                    <div onclick="operand(2)">2</div>
+                    <div onclick="operand(3)">3</div>
+                </div>
+                <div class="numbers">
+                    <div onclick="operand(0)">0</div>
+                    <div onclick="operand(point)">.</div>
+                    <div onclick="operand(3.14)">Exp</div>
+                </div>
+            </div>
+            <div class="right-pannel">
+                <div class="numbers">
+                    <div onclick="operator(11)">+</div>
+                    <div onclick="operator(00)">-</div>
+                    <div style="color: red;" onclick="reset()"><b>C</b></div>
+                </div>
+                <div class="numbers">
+                    <div onclick="operator(10)">*</div>
+                    <div onclick="operator(01)">/</div>
+                    <div style="color: red;" onclick="delet()">Del</div>
+                </div>
+                <div class="numbers">
+                    <div onclick="simplifyTotal(1)">(</div>
+                    <div onclick="simplifyTotal(0)">)</div>
+                    <div style="background-color: red;" onclick="total(22)">=</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    let screen = document.getElementById("screen");
+    let display = [];
+    let index;
+    let index2;
+    let leftArray = [];
+    let rightArray = [];
+    let result;
+    let left;
+    let right;
+    let operation = 0;
+    let count = 0;
+    let k = 0;
+    function operand(x) {
+        // display.length =10;
+        display.push(x);
+        screen.innerHTML = display.join("");
+    }
+    function operator(x) {
+        count++;
+        if (count === 2) {
+            k = total2(operation);
+            count = 1;
+            display.push(k);
+            screen.innerHTML = display.join("");
+        }
+        if (x === 11) {
+            operation = 11;
+            display.push("+");
+            index = display.indexOf("+");
+
+            leftArray = display.slice(0, index);
+
+        }
+        if (x === 00) {
+            operation = 00;
+            display.push("-");
+            index = display.indexOf("-");
+
+            leftArray = display.slice(0, index);
+
+        }
+        if (x === 10) {
+            operation = 10;
+            display.push("*");
+            let index = display.indexOf("*");
+
+            leftArray = display.slice(0, index);
+
+        }
+        if (x === 01) {
+            operation = 01;
+            display.push("/");
+            index = display.indexOf("/");
+
+            leftArray = display.slice(0, index);
+
+        }
+        screen.innerHTML = display.join("");
+    }
+    function total(x) {
+        if (operation === 33 ){
+            index2 = display.indexOf(")");
+            rightArray = display.slice(index+1,index2);
+            left = calculateSum(leftArray);
+            right = calculateSum(rightArray);
+            result = left * right;
+        }else{
+        count = 0;
+        index2 = display.indexOf("=");
+        display.push("=");
+        screen.innerHTML = display.join("");
+
+        rightArray = display.slice(index + 1, index2);
+        left = calculateSum(leftArray);
+        right = calculateSum(rightArray);
+
+        if (operation === 11) {
+
+            result = left + right;
+
+        }
+
+        if (operation === 00) {
+
+            result = left - right;
+
+        }
+
+        if (operation === 10) {
+
+            result = left * right;
+
+        }
+
+        if (operation === 01) {
+
+            result = left / right;
+
+        }
+    }
+        // display = [sum];
+        screen.innerHTML = result;
+        display = [];
+        display.push(result);
+
+    }
+
+    calculateSum = (z) => {
+        return z.reduce((total, num) => (total * 10) + num, 0);
+    }
+
+    reset = () => {
+        display = [];
+        screen.innerHTML = display;
+    }
+    delet = () => {
+        display.pop();
+        screen.innerHTML = display.join("");
+    }
+
+    total2 = (x) => {
+        if (x === 11) {
+            operation = 11;
+
+            index = display.indexOf("+");
+        }
+        if (x === 00) {
+            operation = 00;
+            index = display.indexOf("-");
+        }
+        if (x === 10) {
+            operation = 10;
+
+            index = display.indexOf("*");
+        }
+        if (x === 01) {
+            operation = 01;
+            index = display.indexOf("/");
+        }
+
+        leftArray = display.slice(0, index);
+        display.push("=");
+        index2 = display.indexOf("=");
+
+        screen.innerHTML = display.join("");
+        rightArray = display.slice(index + 1, index2);
+        left = calculateSum(leftArray);
+        right = calculateSum(rightArray);
+
+
+        if (operation === 11) {
+
+            result = left + right;
+
+        }
+
+        if (operation === 00) {
+
+            result = left - right;
+
+        }
+
+        if (operation === 10) {
+
+            result = left * right;
+
+        }
+
+        if (operation === 01) {
+
+            result = left / right;
+
+        }
+        display = [];
+        return result;
+
+    }
+    simplifyTotal = (x)=>{
+        if (x === 1){
+            display.push("(");
+            screen.innerHTML = display.join("");
+            index = display.indexOf("(")
+            leftArray = display.slice(0,index);
+    }
+    if ( x === 0){
+        display.push(")");
+        screen.innerHTML = display.join("");
+
+        operation = 33;
+       
+
+
+    }
+}
+
+</script>
+
+</html>

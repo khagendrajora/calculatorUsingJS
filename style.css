@@ -1,0 +1,79 @@
+body {
+    background: aqua;
+    justify-content: center;
+
+
+
+}
+
+.calculator {
+    background-color: aliceblue;
+    width: 600px;
+    height: 500px;
+    background-position: center;
+    text-align: center;
+
+}
+
+.calculator h3 {
+    width: 450px;
+    height: 100px;
+    border-color: black;
+    background-color: aquamarine;
+    margin: auto;
+    margin-top: 10px;
+    border: 1px solid black;
+    padding: 10px;
+
+
+}
+
+.buttons {
+    width: 500px;
+    height: 340px;
+    margin: 24px;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.numbers div:hover {
+    transform: scale(1.2);
+
+}
+
+.numbers {
+
+    /* border: 1px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.left-pannel .numbers {
+    display: flex;
+
+    height: 60px;
+    margin: 20px;
+
+}
+
+.numbers div {
+    padding: 20px;
+    justify-content: space-between;
+    border: 1px solid black;
+    text-align: center;
+    align-items: center;
+    margin-left: 10px;
+
+}
+
+.right-pannel .numbers {
+    display: flex;
+
+    height: 60px;
+    margin: 20px;
+
+}
